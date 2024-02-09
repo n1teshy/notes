@@ -1,3 +1,3 @@
-export function handler(request, context) {
-  return { request, context };
-}
+export default async (req, context) => {
+  return new Response("Hello, world!");
+};
