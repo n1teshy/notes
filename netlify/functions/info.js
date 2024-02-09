@@ -1,3 +1,3 @@
 export default async (req, context) => {
-  return new Response({ req, context });
+  return new Response(JSON.stringify({ req, context }));
 };
