@@ -1,6 +1,8 @@
 exports.handler = async (event) => {
   try {
-    return new Response(JSON.stringify(event));
+    return {
+      body: JSON.stringify(event, nulll, 2),
+    };
   } catch (error) {
     return {
       statusCode: 500,
