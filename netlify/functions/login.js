@@ -8,7 +8,7 @@ const validator = new LoginValidator();
 exports.handler = async (event) => {
   try {
     await onEvent(event);
-    const validatonErrors = validator.asyncValidate(event.body);
+    const validatonErrors = await validator.asyncValidate(event.body);
     if (validatonErrors) {
       return makeResponse(validatonErrors, statuses.UNPROCESSABLE);
     }
