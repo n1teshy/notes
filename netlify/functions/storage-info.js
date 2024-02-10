@@ -2,7 +2,6 @@ export default async (req, context) => {
   try {
     return new Response(req.body);
   } catch (e) {
-    status = 500;
-    message = e.message;
+    return new Response({ message: e.message }, { status: 500 });
   }
 };
