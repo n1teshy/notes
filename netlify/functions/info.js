@@ -1,11 +1,11 @@
 import { connectDB } from "../utils/db.js";
 
-exports.handler = async (event) => {
+exports.handler = async (req, context) => {
   try {
     await connectDB();
     return {
       statusCode: 200,
-      body: JSON.stringify({ ...event }, null, 2),
+      body: JSON.stringify({ req, context }, null, 2),
     };
   } catch (error) {
     return {
