@@ -1,14 +1,28 @@
+import lambdaMultipart from "lambda-multipart";
 import formidable from "formidable";
 
-const parser = new formidable.IncomingForm();
-
-export default async (req, context) => {
+exports.handler = async (event) => {
   try {
-    const [fields, files] = await parser.parse(req.body);
-    return new Response(JSON.stringify({ fields, files }));
-  } catch (e) {
-    return new Response(JSON.stringify({ message: e.message }), {
-      status: 500,
+    const formData = await lambdaMultipart.parse(event);
+    const form = new formidable.IncomingForm();
+
+    form.parse(formData, (err, fields, files) => {
+      if (err) {
+        return {
+          statusCode: 500,
+          body: JSON.stringify({ error: "Error parsing form data" }),
+        };
+      }
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ fields, files }),
+      };
     });
+  } catch (error) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "Error parsing multipart form data" }),
+    };
   }
 };
