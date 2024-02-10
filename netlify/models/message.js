@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 const messageSchema = new mongoose.Schema({
+  conversationId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Conversation",
+    required: true,
+  },
   sender: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -14,7 +19,7 @@ const messageSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  byGodAlmighty: {
+  isByGod: {
     type: Boolean,
     default: false,
   },
