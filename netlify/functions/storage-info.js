@@ -1,7 +1,14 @@
-import os from "os";
-
-const path = os.platform() === "win32" ? "C:" : "./";
+import fs from "fs/promises";
 
 export default async (req, context) => {
-  return new Response(String(Object.getPrototypeOf(req.body)));
+  let status = 200;
+  let message = "everything went well.";
+  try {
+    await fs.writeFile("file.txt", "hello I am a file");
+  } catch (e) {
+    status = 500;
+    message = e.message;
+  } finally {
+    return Response(message, { status });
+  }
 };
