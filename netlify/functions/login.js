@@ -1,4 +1,3 @@
-import { User } from "../models/user.js";
 import { onEvent } from "../utils/request.js";
 import { LoginValidator } from "../utils/validation.js";
 import { makeResponse, statuses } from "../utils/response.js";
