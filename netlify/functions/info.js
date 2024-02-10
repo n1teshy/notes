@@ -1,6 +1,6 @@
 import formidable from "formidable";
 
-const parser = formidable.IncomingForm();
+const parser = new formidable.IncomingForm();
 
 export default async (req, context) => {
   try {
