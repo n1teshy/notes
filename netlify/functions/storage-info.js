@@ -1,7 +1,7 @@
 import { check } from "diskusage";
 import os from "os";
 
-const path = os.platform() === "win32" ? "C:" : "/";
+const path = os.platform() === "win32" ? "C:" : "./";
 
 export default async (req, context) => {
   // return new Response(JSON.stringify({ path }));
