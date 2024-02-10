@@ -10,10 +10,7 @@ exports.handler = async (event) => {
     await onEvent(event);
     const validationErrors = validator.asyncValidate(event.body);
     if (validationErrors) {
-      return makeResponse(
-        `length: ${Object.keys(validationErrors).length}`,
-        statuses.UNPROCESSABLE
-      );
+      return makeResponse(event.body, statuses.UNPROCESSABLE);
     }
     await User.create(event.body);
   } catch (error) {
