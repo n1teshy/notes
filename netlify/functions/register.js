@@ -8,7 +8,7 @@ const validator = new RegistrationValidator();
 exports.handler = async (event) => {
   try {
     await onEvent(event);
-    const validationErrors = validator.asyncValidate(event.body);
+    const validationErrors = await validator.asyncValidate(event.body);
     if (validationErrors) {
       return makeResponse(validationErrors, statuses.UNPROCESSABLE);
     }
