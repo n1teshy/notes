@@ -5,7 +5,7 @@ exports.handler = async (event) => {
     await connectDB();
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: "connected to database" }),
+      body: JSON.stringify({ ...event }),
     };
   } catch (error) {
     return {
