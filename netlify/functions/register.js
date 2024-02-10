@@ -7,13 +7,10 @@ const validator = new RegistrationValidator();
 
 exports.handler = async (event) => {
   try {
-    // await onEvent(event);
+    await onEvent(event);
     const validationErrors = validator.asyncValidate(event.body);
     if (validationErrors) {
-      return makeResponse(
-        { type: typeof event.body, body: event.body },
-        statuses.UNPROCESSABLE
-      );
+      return makeResponse(validationErrors, statuses.UNPROCESSABLE);
     }
     await User.create(event.body);
   } catch (error) {
