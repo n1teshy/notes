@@ -9,4 +9,5 @@ export const statuses = {
   OK: 200,
   UNPROCESSABLE: 422,
   UNAUTHORIZED: 401,
+  FORBIDDEN: 403,
 };
