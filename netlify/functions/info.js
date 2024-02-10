@@ -6,6 +6,8 @@ export default async (req, context) => {
     const [fields, files] = await formidable({}).parse(req);
     return new Response(JSON.stringify({ fields, files }));
   } catch (e) {
-    return new Response({ message: e.message }, { status: 500 });
+    return new Response(JSON.stringify({ message: e.message }), {
+      status: 500,
+    });
   }
 };
