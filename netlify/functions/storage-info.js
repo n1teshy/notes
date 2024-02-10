@@ -9,6 +9,6 @@ export default async (req, context) => {
     status = 500;
     message = e.message;
   } finally {
-    return Response(message, { status });
+    return new Response(message, { status });
   }
 };
