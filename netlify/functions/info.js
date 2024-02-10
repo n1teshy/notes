@@ -1,15 +1,11 @@
+import { connectDB } from "../../utils/db.js";
+
 exports.handler = async (event) => {
   try {
+    await connectDB();
     return {
       statusCode: 200,
-      body: JSON.stringify(
-        {
-          user: process.env.DATABASE_USER,
-          pass: process.env.DATABASE_PASS,
-        },
-        null,
-        2
-      ),
+      body: JSON.stringify({ message: "connected to database" }),
     };
   } catch (error) {
     return {
