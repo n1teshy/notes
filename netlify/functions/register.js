@@ -1,18 +1,18 @@
 import { User } from "../models/user.js";
-import { onEvent } from "../utils/request.js";
+import { onRequest } from "../utils/request.js";
 import { RegistrationValidator } from "../utils/validation.js";
 import { makeResponse, statuses } from "../utils/response.js";
 
 const validator = new RegistrationValidator();
 
-exports.handler = async (event) => {
+exports.handler = async (req) => {
   try {
-    await onEvent(event);
-    const validationErrors = await validator.asyncValidate(event.body);
+    await onRequest(req);
+    const validationErrors = await validator.asyncValidate(req.body);
     if (validationErrors) {
       return makeResponse(validationErrors, statuses.UNPROCESSABLE);
     }
-    const user = await User.create(event.body);
+    const user = await User.create(req.body);
     return makeResponse(user.toJSON());
   } catch (error) {
     return {

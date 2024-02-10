@@ -1,18 +1,18 @@
 import { Conversation } from "../models/conversation.js";
-import { onEvent } from "../utils/request.js";
+import { onRequest } from "../utils/request.js";
 import { ConversationValidator } from "../utils/validation.js";
 import { makeResponse, statuses } from "../utils/response.js";
 
 const validator = new ConversationValidator();
 
-exports.handler = async (event) => {
+exports.handler = async (req) => {
   try {
-    await onEvent(event);
-    const validationErrors = await validator.asyncValidate(event.body);
+    await onRequest(req);
+    const validationErrors = await validator.asyncValidate(req.body);
     if (validationErrors) {
       return makeResponse(validationErrors, statuses.UNPROCESSABLE);
     }
-    const conversation = await Conversation.create(event.body);
+    const conversation = await Conversation.create(req.body);
     return makeResponse(conversation.toJSON());
   } catch (error) {
     return {
