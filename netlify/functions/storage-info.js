@@ -1,5 +1,5 @@
 // import { check } from "diskusage";
-// import os from "os";
+import os from "os";
 
 // const path = os.platform() === "win32" ? "C:" : "/";
 
