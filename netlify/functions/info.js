@@ -1,7 +1,7 @@
 exports.handler = async (event) => {
   try {
     return {
-      body: JSON.stringify(event, nulll, 2),
+      body: JSON.stringify(event, null, 2),
     };
   } catch (error) {
     return {
