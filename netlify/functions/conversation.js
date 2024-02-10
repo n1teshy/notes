@@ -10,7 +10,7 @@ exports.handler = async (req) => {
     const method = req.httpMethod;
     if (method === "GET") {
       const conversations = await Conversation.find();
-      return conversations.map(async (c) => await c.toJSON());
+      return makeResponse(conversations.map(async (c) => await c.toJSON()));
     }
     if (method === "POST") {
       await onRequest(req);
