@@ -33,6 +33,7 @@ const userSchema = new mongoose.Schema(
 
 userSchema.methods.toJSON = function () {
   return {
+    id: this._id,
     username: this.username,
     name: `${this.firstName} ${this.lastName ? this.lastName : ""}`,
     age: this.age,
