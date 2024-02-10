@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "anubis-inspect": "^1.6.4",
     "mongoose": "^8.1.1"
   }
 }
