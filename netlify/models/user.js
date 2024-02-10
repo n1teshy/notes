@@ -31,4 +31,13 @@ const userSchema = new mongoose.Schema(
   }
 );
 
+userSchema.methods.toJSON = function () {
+  return {
+    username: this.username,
+    name: `${this.firstName} ${this.lastName ? this.lastName : ""}`,
+    age: this.age,
+    gender: this.gender,
+  };
+};
+
 export const User = mongoose.model("User", userSchema);

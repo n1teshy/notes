@@ -12,7 +12,8 @@ exports.handler = async (event) => {
     if (validationErrors) {
       return makeResponse(validationErrors, statuses.UNPROCESSABLE);
     }
-    await User.create(event.body);
+    const user = await User.create(event.body);
+    return makeResponse(user.toJSON());
   } catch (error) {
     return {
       statusCode: 500,
