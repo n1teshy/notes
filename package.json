@@ -11,6 +11,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "diskusage": "^1.2.0"
+    "formidable": "^3.5.1"
   }
 }
