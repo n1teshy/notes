@@ -11,7 +11,7 @@ exports.handler = async (event) => {
     const validationErrors = validator.asyncValidate(event.body);
     if (validationErrors) {
       return makeResponse(
-        `is it null? ${validationErrors === null}`,
+        `length: ${Object.keys(validationErrors).length}`,
         statuses.UNPROCESSABLE
       );
     }
