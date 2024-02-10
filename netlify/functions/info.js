@@ -2,7 +2,14 @@ exports.handler = async (event) => {
   try {
     return {
       statusCode: 200,
-      body: JSON.stringify(event, null, 2),
+      body: JSON.stringify(
+        {
+          user: process.env.DATABASE_USER,
+          pass: process.env.DATABASE_PASS,
+        },
+        null,
+        2
+      ),
     };
   } catch (error) {
     return {
