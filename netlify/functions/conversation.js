@@ -7,13 +7,24 @@ const validator = new ConversationValidator();
 
 exports.handler = async (req) => {
   try {
-    await onRequest(req);
-    const validationErrors = await validator.asyncValidate(req.body);
-    if (validationErrors) {
-      return makeResponse(validationErrors, statuses.UNPROCESSABLE);
+    const method = req.httpMethod;
+    if (method === "GET") {
+      const conversations = await Conversation.find();
+      return conversations.map(async (c) => await c.toJSON());
     }
-    const conversation = await Conversation.create(req.body);
-    return makeResponse(conversation.toJSON());
+    if (method === "POST") {
+      await onRequest(req);
+      const validationErrors = await validator.asyncValidate(req.body);
+      if (validationErrors) {
+        return makeResponse(validationErrors, statuses.UNPROCESSABLE);
+      }
+      const conversation = await Conversation.create(req.body);
+      return makeResponse(conversation.toJSON());
+    }
+    return makeResponse(
+      { message: "Nah bro, wrong method." },
+      statuses.FORBIDDEN
+    );
   } catch (error) {
     return {
       statusCode: 500,

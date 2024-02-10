@@ -7,13 +7,19 @@ const validator = new RegistrationValidator();
 
 exports.handler = async (req) => {
   try {
-    await onRequest(req);
-    const validationErrors = await validator.asyncValidate(req.body);
-    if (validationErrors) {
-      return makeResponse(validationErrors, statuses.UNPROCESSABLE);
+    if (req.httpMethod === "POST") {
+      await onRequest(req);
+      const validationErrors = await validator.asyncValidate(req.body);
+      if (validationErrors) {
+        return makeResponse(validationErrors, statuses.UNPROCESSABLE);
+      }
+      const user = await User.create(req.body);
+      return makeResponse(user.toJSON());
     }
-    const user = await User.create(req.body);
-    return makeResponse(user.toJSON());
+    return makeResponse(
+      { message: "Nah bro, wrong method." },
+      statuses.FORBIDDEN
+    );
   } catch (error) {
     return {
       statusCode: 500,
