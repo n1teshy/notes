@@ -1,5 +1,10 @@
 import { User } from "../models/user.js";
-import { BaseValidator, StringField, NumberField } from "anubis-inspect";
+import {
+  ArrayField,
+  BaseValidator,
+  StringField,
+  NumberField,
+} from "anubis-inspect";
 
 export class RegistrationValidator extends BaseValidator {
   constructor() {
@@ -45,6 +50,25 @@ export class LoginValidator extends BaseValidator {
           return [isValid, "Wrong password, you amnesiac?"];
         },
         ["username"]
+      ),
+    });
+  }
+}
+
+export class ConversationValidator extends BaseValidator {
+  constructor() {
+    super();
+    super.init({
+      participants: new ArrayField("Participants").test(
+        async (participantIds) => {
+          const participants = await User.find({
+            _id: { $in: participantIds },
+          });
+          return [
+            participantIds.length === participants.length,
+            "A participant doesn't exist, I'll let you figure out which.",
+          ];
+        }
       ),
     });
   }

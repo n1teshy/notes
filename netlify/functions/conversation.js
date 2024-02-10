@@ -1,9 +1,9 @@
-import { User } from "../models/user.js";
+import { Conversation } from "../models/conversation.js";
 import { onEvent } from "../utils/request.js";
-import { RegistrationValidator } from "../utils/validation.js";
+import { ConversationValidator } from "../utils/validation.js";
 import { makeResponse, statuses } from "../utils/response.js";
 
-const validator = new RegistrationValidator();
+const validator = new ConversationValidator();
 
 exports.handler = async (event) => {
   try {
@@ -12,8 +12,8 @@ exports.handler = async (event) => {
     if (validationErrors) {
       return makeResponse(validationErrors, statuses.UNPROCESSABLE);
     }
-    const user = await User.create(event.body);
-    return makeResponse(user.toJSON());
+    const conversation = await Conversation.create(event.body);
+    return makeResponse(conversation.toJSON());
   } catch (error) {
     return {
       statusCode: 500,
