@@ -1,4 +1,4 @@
-import { connectDB } from "../../utils/db.js";
+import { connectDB } from "../utils/db.js";
 
 exports.handler = async (event) => {
   try {
