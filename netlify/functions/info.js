@@ -1,8 +1,15 @@
 import { makeResponse } from "../utils/response.js";
 
+const data = { data: null };
+
 exports.handler = async (req, context) => {
   try {
-    return makeResponse({ req, context });
+    if (data.data === null) {
+      const date = new Date();
+      data.data = `${date.getUTCHours()}:${date.getUTCMinutes()}:${date.getUTCSeconds()}`;
+      return makeResponse({ message: "set" });
+    }
+    return makeResponse(data);
   } catch (error) {
     return makeResponse({ message: error.message }, error.status || 500);
   }
