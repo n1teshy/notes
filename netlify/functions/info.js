@@ -9,7 +9,9 @@ exports.handler = async (req, context) => {
       data.data = `${date.getUTCHours()}:${date.getUTCMinutes()}:${date.getUTCSeconds()}`;
       return makeResponse({ message: "set" });
     }
-    return makeResponse(data);
+    const copy = Object.assign({}, data);
+    data.data = null;
+    return makeResponse(copy);
   } catch (error) {
     return makeResponse({ message: error.message }, error.status || 500);
   }
