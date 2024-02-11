@@ -1,4 +1,5 @@
 import { connectDB } from "../utils/db.js";
+import { makeResponse } from "../utils/response.js";
 
 exports.handler = async (req, context) => {
   try {
@@ -8,9 +9,6 @@ exports.handler = async (req, context) => {
       body: JSON.stringify({ req, context }, null, 2),
     };
   } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: error.message }, null, 2),
-    };
+    return makeResponse({ message: error.message }, error.status || 500);
   }
 };

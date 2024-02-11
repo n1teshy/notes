@@ -21,9 +21,6 @@ exports.handler = async (req) => {
       statuses.FORBIDDEN
     );
   } catch (error) {
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: error.message }, null, 2),
-    };
+    return makeResponse({ message: error.message }, error.status || 500);
   }
 };
