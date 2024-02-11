@@ -1,7 +1,9 @@
+import { Conversation } from "../models/conversation.js";
 import { User } from "../models/user.js";
 import {
   ArrayField,
   BaseValidator,
+  BooleanField,
   StringField,
   NumberField,
 } from "anubis-inspect";
@@ -70,6 +72,19 @@ export class ConversationValidator extends BaseValidator {
           ];
         }
       ),
+    });
+  }
+}
+
+export class MessageValidator extends BaseValidator {
+  constructor() {
+    super();
+    super.init({
+      conversationId: new StringField("Conversation").test(async (convId) => [
+        await Conversation.exists({ _id: convId }),
+        "Nah, this conversation don't exist.",
+      ]),
+      content: new StringField("Content"),
     });
   }
 }

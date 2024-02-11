@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import { Conversation } from "./conversation.js";
+import { User } from "./user.js";
 
 const messageSchema = new mongoose.Schema({
   conversationId: {
@@ -24,5 +26,20 @@ const messageSchema = new mongoose.Schema({
     default: false,
   },
 });
+
+messageSchema.methods.toJSON = async function () {
+  const [conversation, sender] = await Promise.all([
+    Conversation.findById(this.conversationId),
+    User.findById(this.sender),
+  ]);
+  return {
+    id: this._id,
+    conversation: conversation,
+    sender: sender,
+    content: this.content,
+    timestamp: this.timestamp,
+    isByGod: this.isByGod,
+  };
+};
 
 export const Message = mongoose.model("Message", messageSchema);

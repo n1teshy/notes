@@ -1,6 +1,8 @@
+import { User } from "../models/user.js";
 import { onRequest } from "../utils/request.js";
 import { LoginValidator } from "../utils/validation.js";
 import { makeResponse, statuses } from "../utils/response.js";
+import { encrypt } from "../utils/crypt.js";
 
 const validator = new LoginValidator();
 
@@ -12,7 +14,8 @@ exports.handler = async (req) => {
       if (validatonErrors) {
         return makeResponse(validatonErrors, statuses.UNPROCESSABLE);
       }
-      return makeResponse({ message: "You in, bro." });
+      const user = await User.find({ username: req.body.username });
+      return makeResponse({ token: encrypt(JSON.stringify(user.toJSON())) });
     }
     return makeResponse(
       { message: "Nah bro, wrong method." },
