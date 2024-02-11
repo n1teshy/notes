@@ -28,14 +28,10 @@ const messageSchema = new mongoose.Schema({
 });
 
 messageSchema.methods.toJSON = async function () {
-  const [conversation, sender] = await Promise.all([
-    Conversation.findById(this.conversationId),
-    User.findById(this.sender),
-  ]);
   return {
     id: this._id,
-    conversation: conversation,
-    sender: sender,
+    conversation: this.conversationId,
+    sender: this.sender,
     content: this.content,
     timestamp: this.timestamp,
     isByGod: this.isByGod,
