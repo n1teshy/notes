@@ -30,7 +30,7 @@ const messageSchema = new mongoose.Schema({
 messageSchema.methods.toJSON = async function () {
   return {
     id: this._id,
-    conversation: this.conversationId,
+    conversationId: this.conversationId,
     sender: this.sender,
     content: this.content,
     timestamp: this.timestamp,
