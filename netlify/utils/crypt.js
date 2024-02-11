@@ -1,4 +1,6 @@
 import crypto from "crypto";
+import { AppError } from "./error.js";
+import { statuses } from "./response.js";
 
 const secretKey = process.env.SECRET_KEY;
 
@@ -30,6 +32,9 @@ export function decrypt(encrypted) {
     );
     return decipher.update(enc, "hex", "utf8") + decipher.final("utf8");
   } catch (e) {
-    return null;
+    if (e.code === "ERR_OSSL_BAD_DECRYPT") {
+      throw new AppError(statuses.FORBIDDEN, "Cuh, you ain't authorized.");
+    }
+    throw e;
   }
 }

@@ -11,7 +11,7 @@ export async function onRequest(req, secure = false) {
   if (req.headers.authorization) {
     req.user = JSON.parse(decrypt(req.headers.authorization));
   } else if (secure) {
-    throw AppError(
+    throw new AppError(
       statuses.UNAUTHORIZED,
       "Nah bro, you ain't authorized for these streets."
     );
