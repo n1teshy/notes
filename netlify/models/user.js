@@ -25,6 +25,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["M", "F", "O"],
     },
+    isGod: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,
@@ -38,6 +42,7 @@ userSchema.methods.toJSON = function () {
     name: `${this.firstName} ${this.lastName ? this.lastName : ""}`,
     age: this.age,
     gender: this.gender,
+    isGod: this.isGod,
   };
 };
 
