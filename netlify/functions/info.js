@@ -4,7 +4,7 @@ const data = { utc: null, indian: null };
 
 exports.handler = async (req, context) => {
   try {
-    if (data.data === null) {
+    if (data.utc === null) {
       const date = new Date();
       data.utc = `${date.getUTCHours()}:${date.getUTCMinutes()}:${date.getUTCSeconds()}`;
       data.indian = date.toLocaleDateString("en-IN");
