@@ -14,7 +14,7 @@ exports.handler = async (req) => {
       if (validatonErrors) {
         return makeResponse(validatonErrors, statuses.UNPROCESSABLE);
       }
-      const user = await User.find({ username: req.body.username });
+      const user = await User.findOne({ username: req.body.username });
       return makeResponse({ token: encrypt(JSON.stringify(user.toJSON())) });
     }
     return makeResponse(
