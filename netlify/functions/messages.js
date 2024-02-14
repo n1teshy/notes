@@ -14,6 +14,7 @@ exports.handler = async (req) => {
     if (method === "GET") {
       let { timestamp, conversation } = req.queries;
       if (!conversation) {
+        return { statusCode: 200, body: "will throw" };
         throw new AppError("Dat convo don't exist bro.", statuses.NOT_FOUND);
       }
       if (timestamp === undefined || !/^\d+$/.test(timestamp)) {
