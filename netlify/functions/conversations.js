@@ -17,7 +17,7 @@ exports.handler = async (req) => {
       let convos = await Conversation.find({
         participants: { $elemMatch: { $eq: req.user.id } },
       });
-      convos = Promise.all(convos.map((c) => c.toJSON()));
+      convos = await Promise.all(convos.map((c) => c.toJSON()));
       return makeResponse(convos);
     }
     const validationErrors = await validator.asyncValidate(req.body);
