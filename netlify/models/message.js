@@ -25,7 +25,7 @@ const messageSchema = new mongoose.Schema({
   },
 });
 
-messageSchema.methods.toJSON = async function () {
+messageSchema.methods.toJSON = function () {
   return {
     id: this._id,
     conversationId: this.conversationId,
