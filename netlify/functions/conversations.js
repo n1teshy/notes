@@ -14,11 +14,13 @@ exports.handler = async (req) => {
     }
     await onRequest(req, true);
     if (method === "GET") {
-      const convos = await Conversation.findOne({
+      let convos = await Conversation.find({
         participants: { $elemMatch: { $eq: req.user.id } },
       });
+      convos = convos.map((c) => c.toJSON());
+      return makeResponse({ is: convos[0] instanceof Promise });
       // return makeResponse({ length: convos.length });
-      return makeResponse(convos.toJSON());
+      // return makeResponse(convos.map((c) => c.toJSON()));
     }
     const validationErrors = await validator.asyncValidate(req.body);
     if (validationErrors) {
