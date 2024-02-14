@@ -11,4 +11,5 @@ export const statuses = {
   UNPROCESSABLE: 422,
   UNAUTHORIZED: 401,
   FORBIDDEN: 403,
+  NOT_FOUND: 404,
 };
