@@ -12,7 +12,7 @@ exports.handler = async (req, context) => {
       });
       socket.on("listening", () => resolve());
       socket.on("error", (error) => reject(error));
-      socket.listen(3000);
+      socket.listen(3000, "0.0.0.0");
     });
     return makeResponse({ message: "port opened." });
   } catch (error) {
