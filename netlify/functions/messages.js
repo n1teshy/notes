@@ -14,7 +14,7 @@ exports.handler = async (req) => {
       throw new AppError(statuses.BAD_REQUEST, "Nah son, that method wrong.");
     }
     await onRequest(req, true);
-    const conversation = req.queries.conversation;
+    let conversation = req.queries.conversation;
     if (!conversation) {
       throw new AppError(
         statuses.NOT_FOUND,
