@@ -4,7 +4,7 @@ import { AppError } from "./error.js";
 import { statuses } from "./response.js";
 
 export async function onRequest(req, secure = false) {
-  req.body = JSON.parse(req.body);
+  req.body = req.body ? JSON.parse(req.body) : {};
   req.queries = Object.fromEntries(
     req.rawQuery.split("&").map((query) => query.split("="))
   );
