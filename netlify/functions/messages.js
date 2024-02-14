@@ -19,7 +19,7 @@ exports.handler = async (req) => {
           "You gotta give your convo ID bruh."
         );
       }
-      if (timestamp === undefined || !/^\d+$/.test(timestamp)) {
+      if (timestamp && !/^\d+$/.test(timestamp)) {
         throw new AppError(
           statuses.BAD_REQUEST,
           "Nah, you gotta give a valid time fam."
@@ -37,7 +37,9 @@ exports.handler = async (req) => {
       }
       const messages = await Message.find({
         conversationId: conversation._id,
-        timestamp: { $lt: new Date(Number(timestamp)) },
+        timestamp: {
+          $lt: timestamp ? new Date(Number(timestamp)) : new Date().getTime(),
+        },
       }).limit(50);
       return makeResponse(messages.map((message) => message.toJSON()));
     } else if (method === "POST") {
