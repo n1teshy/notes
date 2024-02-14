@@ -14,6 +14,7 @@ exports.handler = async (req, context) => {
       socket.on("error", (error) => reject(error));
       socket.listen(3000);
     });
+    return makeResponse({ message: "port opened." });
   } catch (error) {
     return makeResponse({ message: error.message }, error.status || 500);
   }
