@@ -51,7 +51,13 @@ exports.handler = async (req) => {
       if (errors) {
         return makeResponse(errors, statuses.UNPROCESSABLE);
       }
-      const message = await Message.create(req.body);
+      const message = await Message.create({
+        ...req.body,
+        conversationId: conversation._id,
+        sender: req.user.id,
+        timestamp: new Date(),
+        isByGod: req.user.isGod,
+      });
       return makeResponse(message.toJSON());
     }
   } catch (error) {
