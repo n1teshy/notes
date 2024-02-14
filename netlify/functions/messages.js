@@ -47,6 +47,15 @@ exports.handler = async (req) => {
       if (errors) {
         return makeResponse(errors, statuses.UNPROCESSABLE);
       }
+      const conversation = await Conversation.findOne({
+        _id: req.body.conversationId,
+      });
+      if (conversation.participants.indexOf(req.user.id) === -1) {
+        throw new AppError(
+          statuses.FORBIDDEN,
+          "You ain't a part of dat convo bro, stop playin'."
+        );
+      }
       const message = await Message.create(req.body);
       return makeResponse(message.toJSON());
     }
