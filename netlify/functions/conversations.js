@@ -17,6 +17,7 @@ exports.handler = async (req) => {
       const convos = await Conversation.find({
         participants: { $elemMatch: { _id: req.user.id } },
       });
+      return makeResponse({ length: convos.length });
       return makeResponse(convos.map(async (c) => c.toJSON()));
     }
     const validationErrors = await validator.asyncValidate(req.body);
