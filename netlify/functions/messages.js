@@ -51,7 +51,7 @@ exports.handler = async (req) => {
       if (errors) {
         return makeResponse(errors, statuses.UNPROCESSABLE);
       }
-      const message = await Message.create({
+      const message = Message.create({
         ...req.body,
         conversationId: conversation._id,
         sender: req.user.id,
