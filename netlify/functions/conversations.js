@@ -18,7 +18,7 @@ exports.handler = async (req) => {
         participants: { $elemMatch: { $eq: req.user.id } },
       });
       // return makeResponse({ length: convos.length });
-      return makeResponse(convos.map(async (c) => c.toJSON()));
+      return makeResponse(convos.map((c) => c.toJSON()));
     }
     const validationErrors = await validator.asyncValidate(req.body);
     if (validationErrors) {
