@@ -15,7 +15,7 @@ exports.handler = async (req) => {
     await onRequest(req, true);
     if (method === "GET") {
       const convos = await Conversation.find({
-        participants: { $elemMatch: req.user.id },
+        participants: { $elemMatch: { $eq: req.user.id } },
       });
       return makeResponse({ length: convos.length });
       return makeResponse(convos.map(async (c) => c.toJSON()));
