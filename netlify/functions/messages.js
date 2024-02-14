@@ -14,20 +14,19 @@ exports.handler = async (req) => {
     if (method === "GET") {
       let { timestamp, conversation } = req.queries;
       if (!conversation) {
-        return { statusCode: 200, body: "will throw" };
-        throw new AppError("Dat convo don't exist bro.", statuses.NOT_FOUND);
+        throw new AppError(statuses.NOT_FOUND, "Dat convo don't exist bro.");
       }
       if (timestamp === undefined || !/^\d+$/.test(timestamp)) {
         throw new AppError(
-          "Nah, you gotta give a valid time fam.",
-          statuses.BAD_REQUEST
+          statuses.BAD_REQUEST,
+          "Nah, you gotta give a valid time fam."
         );
       }
       conversation = await Conversation.findOne({ _id: conversation });
       if (conversation.participants.indexOf(req.user.id) === -1) {
         throw new AppError(
-          "You ain't a part of dat convo bro, stop playin'.",
-          statuses.FORBIDDEN
+          statuses.FORBIDDEN,
+          "You ain't a part of dat convo bro, stop playin'."
         );
       }
       const messages = await Message.find({
