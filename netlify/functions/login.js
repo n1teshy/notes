@@ -19,7 +19,7 @@ exports.handler = async (req) => {
     }
     return makeResponse(
       { message: "Nah bro, wrong method." },
-      statuses.FORBIDDEN
+      statuses.BAD_REQUEST
     );
   } catch (error) {
     return makeResponse({ message: error.message }, error.status || 500);

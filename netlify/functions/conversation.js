@@ -10,7 +10,7 @@ exports.handler = async (req) => {
   try {
     const method = req.httpMethod;
     if (method !== "GET" && method !== "POST") {
-      throw new AppError(statuses.FORBIDDEN, "Nah cuh, wrong method.");
+      throw new AppError(statuses.BAD_REQUEST, "Nah cuh, wrong method.");
     }
     await onRequest(req, true);
     if (method === "GET") {
