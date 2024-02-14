@@ -24,7 +24,7 @@ exports.handler = async (req) => {
       return makeResponse(validationErrors, statuses.UNPROCESSABLE);
     }
     const conversation = await Conversation.create(req.body);
-    return makeResponse(await conversation.toJSON());
+    return makeResponse(conversation.toJSON());
   } catch (error) {
     return makeResponse({ message: error.message }, error.status || 500);
   }
