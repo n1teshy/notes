@@ -14,7 +14,10 @@ exports.handler = async (req) => {
     if (method === "GET") {
       let { timestamp, conversation } = req.queries;
       if (!conversation) {
-        throw new AppError(statuses.NOT_FOUND, "Dat convo don't exist bro.");
+        throw new AppError(
+          statuses.NOT_FOUND,
+          "You gotta give your convo ID bruh."
+        );
       }
       if (timestamp === undefined || !/^\d+$/.test(timestamp)) {
         throw new AppError(
@@ -23,6 +26,9 @@ exports.handler = async (req) => {
         );
       }
       conversation = await Conversation.findOne({ _id: conversation });
+      if (!conversation) {
+        throw AppError(statuses.NOT_FOUND, "Dat convo don't exist bro.");
+      }
       if (conversation.participants.indexOf(req.user.id) === -1) {
         throw new AppError(
           statuses.FORBIDDEN,
