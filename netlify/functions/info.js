@@ -10,6 +10,7 @@ exports.handler = async (req, context) => {
       });
     });
     socket.listen(3000);
+    return makeResponse({ message: "done" });
   } catch (error) {
     return makeResponse({ message: error.message }, error.status || 500);
   }
