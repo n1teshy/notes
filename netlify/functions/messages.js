@@ -13,19 +13,20 @@ exports.handler = async (req) => {
     const method = req.httpMethod;
     if (method === "GET") {
       let { timestamp, conversation } = req.queries;
-      conversation = await Conversation.findOne({ _id: conversation });
       if (!conversation) {
         throw new AppError("Dat convo don't exist bro.", statuses.NOT_FOUND);
-      } else if (conversation.participants.indexOf(req.user.id) === -1) {
-        throw new AppError(
-          "You ain't a part of dat convo bro, stop playin'.",
-          statuses.FORBIDDEN
-        );
       }
       if (timestamp === undefined || !/^\d+$/.test(timestamp)) {
         throw new AppError(
           "Nah, you gotta give a valid time fam.",
           statuses.BAD_REQUEST
+        );
+      }
+      conversation = await Conversation.findOne({ _id: conversation });
+      if (conversation.participants.indexOf(req.user.id) === -1) {
+        throw new AppError(
+          "You ain't a part of dat convo bro, stop playin'.",
+          statuses.FORBIDDEN
         );
       }
       const messages = await Message.find({
