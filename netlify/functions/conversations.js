@@ -26,6 +26,7 @@ exports.handler = async (req) => {
     const conversation = await Conversation.create(req.body);
     return makeResponse(await conversation.toJSON());
   } catch (error) {
+    throw error;
     return makeResponse({ message: error.message }, error.status || 500);
   }
 };
