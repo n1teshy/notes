@@ -80,10 +80,6 @@ export class MessageValidator extends BaseValidator {
   constructor() {
     super();
     super.init({
-      conversationId: new StringField("Conversation").test(async (convId) => [
-        await Conversation.exists({ _id: convId }),
-        "Nah, this conversation don't exist.",
-      ]),
       content: new StringField("Content"),
     });
   }
