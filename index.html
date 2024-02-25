@@ -50,9 +50,7 @@
         ctx.moveTo(x, y);
         ctx.lineTo(endX, endY);
         ctx.lineWidth = length / 10;
-        ctx.strokeStyle = `rgba(${colors[
-          Math.floor(Math.random() * colors.length)
-        ].rgb.join(",")}, ${depth / maxDepth})`;
+        ctx.strokeStyle = `rgba(0, 255, 0, ${depth / maxDepth})`;
         ctx.stroke();
 
         requestAnimationFrame(() => {
