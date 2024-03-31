@@ -23,7 +23,7 @@
           Add
         </a>
       </h1>
-      <div id="notes" class="flex flex-col space-y-4">
+      <div id="notes" class="grid grid-cols-12">
         <!-- Notes will be dynamically added here -->
       </div>
     </div>
@@ -51,7 +51,7 @@
         notesContainer.innerHTML = "";
         notes.forEach((note) => {
           const noteHtml = `
-                        <div class="bg-white p-4 rounded shadow">
+                        <div class="md:col-span-6 col-span-12 bg-white p-4 rounded shadow">
                             <h2 class="text-lg font-semibold">${note.title}</h2>
                             <p>${note.content}</p>
                             <button onclick="confirmDelete(${note.id})" class="mt-2 bg-red-500 text-white px-4 py-1 rounded">Delete</button>
