@@ -55,7 +55,7 @@
                             <h2 class="text-lg font-semibold">${note.title}</h2>
                             <p>${note.content}</p>
                             <button onclick="confirmDelete(${note.id})" class="mt-2 bg-red-500 text-white px-4 py-2 rounded">Delete</button>
-                            <a type="button" href="edit.html?id=${note.id}" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
+                            <a type="button" href="edit.html?id=${note.id}" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Edit</a>
                         </div>
                     `;
           notesContainer.innerHTML += noteHtml;
