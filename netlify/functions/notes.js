@@ -33,7 +33,7 @@ async function notes(req) {
     const note = await Note.create(req.body);
     return makeResponse(note.toJSON());
   }
-  const notes = await Note.find().skip(req.queries.skip ?? 0).limit(req.queries.limit ?? 20);
+  const notes = await Note.find().skip(req.queries.skip ?? 0).limit(req.queries.limit ?? 1000);
   return makeResponse(notes.map((note) => note.toJSON()));
 }
 
