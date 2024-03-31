@@ -1,88 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fractal Tree</title>
-    <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-        background-color: black;
-      }
-      canvas {
-        display: block;
-      }
-    </style>
-  </head>
-  <body>
-    <canvas id="canvas"></canvas>
 
-    <script>
-      const canvas = document.getElementById("canvas");
-      const ctx = canvas.getContext("2d");
-      const colors = [
-        { color: "White", rgb: [255, 255, 255] },
-        { color: "Gold", rgb: [255, 215, 0] },
-        { color: "Blue", rgb: [0, 0, 255] },
-        { color: "Purple", rgb: [128, 0, 128] },
-        { color: "Green", rgb: [0, 128, 0] },
-        { color: "Silver", rgb: [192, 192, 192] },
-        { color: "Turquoise", rgb: [64, 224, 208] },
-        { color: "Indigo", rgb: [75, 0, 130] },
-      ];
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .red-text {
+      color: red;
+    }
+  </style>
+</head>
 
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+<body>
+  <p class="red-text">hello</p>
+</body>
 
-      const branchAngle = Math.PI / 6;
-      const trunkHeight = canvas.height / 3.5;
-      const trunkWidth = 20;
-      const maxDepth = 10;
-
-      function drawTree(x, y, length, angle, depth) {
-        if (depth === 0) return;
-
-        const endX = x + Math.cos(angle) * length;
-        const endY = y + Math.sin(angle) * length;
-
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(endX, endY);
-        ctx.lineWidth = length / 10;
-        ctx.strokeStyle = `rgba(251, 171, 82, ${depth / maxDepth})`;
-        ctx.stroke();
-
-        requestAnimationFrame(() => {
-          drawTree(
-            endX,
-            endY,
-            length * 0.7,
-            angle - branchAngle,
-            depth - 1
-          );
-          drawTree(
-            endX,
-            endY,
-            length * 0.7,
-            angle + branchAngle,
-            depth - 1
-          );
-        });
-      }
-
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        drawTree(
-          canvas.width / 2,
-          canvas.height,
-          trunkHeight,
-          -Math.PI / 2,
-          maxDepth
-        );
-      }
-
-      draw();
-    </script>
-  </body>
 </html>
