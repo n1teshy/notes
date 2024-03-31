@@ -79,7 +79,7 @@
             content: content.value ? content.value : null,
           };
           const response = await fetch(
-            `https://virtual-paper.netlify.app/notes/${noteId}`,
+            `https://virtual-paper.netlify.app/.netlify/functions/notes/${noteId}`,
             {
               headers: { "Content-Type": "application/json" },
               method: "PUT",
