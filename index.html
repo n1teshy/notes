@@ -1,13 +1,63 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body>
-  <h1 class="text-3xl font-bold underline">
-    Hello world!
-  </h1>
-</body>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background-color: #edf2f7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mx-auto mt-8">
+      <h1 class="text-2xl mb-4">Notes</h1>
+      <div id="notes" class="flex flex-col space-y-4">
+        <!-- Notes will be dynamically added here -->
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        fetchNotes();
+      });
+
+      async function fetchNotes() {
+        try {
+          const response = await fetch(
+            "https://virtual-paper.netlify.app/.netlify/functions/notes"
+          );
+          const notes = await response.json();
+          const notesContainer = document.getElementById("notes");
+          notesContainer.innerHTML = "";
+          notes.forEach((note) => {
+            const noteHtml = `
+                        <div class="bg-white p-4 rounded shadow">
+                            <h2 class="text-lg font-semibold">${note.title}</h2>
+                            <p>${note.content}</p>
+                            <button onclick="confirmDelete(${note.id})" class="mt-2 bg-red-500 text-white px-4 py-2 rounded">Delete</button>
+                            <button onclick="editNote(${note.id})" class="mt-2 bg-blue-500 text-white px-4 py-2 rounded">Edit</button>
+                        </div>
+                    `;
+            notesContainer.innerHTML += noteHtml;
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      }
+
+      function confirmDelete(noteId) {
+        if (confirm("Are you sure you want to delete this note?")) {
+          // Implement deletion logic here
+        }
+      }
+
+      function editNote(noteId) {
+        // Redirect to edit page with the noteId
+        window.location.href = `edit.html?id=${noteId}`;
+      }
+    </script>
+  </body>
 </html>

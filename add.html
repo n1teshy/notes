@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Note</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background-color: #edf2f7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mx-auto mt-8">
+      <h1 class="text-2xl mb-4">Add Note</h1>
+      <form id="addNoteForm">
+        <div class="mb-4">
+          <label for="title" class="block">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="w-full border rounded px-4 py-2"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="content" class="block">Content</label>
+          <textarea
+            id="content"
+            name="content"
+            rows="5"
+            class="w-full border rounded px-4 py-2"
+          ></textarea>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+          Add Note
+        </button>
+      </form>
+    </div>
+
+    <script>
+      document
+        .getElementById("addNoteForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const formData = new FormData(this);
+
+          fetch("https://api.example.com/notes", {
+            method: "POST",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // Redirect to notes page
+              window.location.href = "notes.html";
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Failed to add note. Please try again later.");
+            });
+        });
+    </script>
+  </body>
+</html>

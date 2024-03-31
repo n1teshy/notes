@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Note</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        background-color: #edf2f7;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container mx-auto mt-8">
+      <h1 class="text-2xl mb-4">Edit Note</h1>
+      <form id="editNoteForm">
+        <div class="mb-4">
+          <label for="title" class="block">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            class="w-full border rounded px-4 py-2"
+          />
+        </div>
+        <div class="mb-4">
+          <label for="content" class="block">Content</label>
+          <textarea
+            id="content"
+            name="content"
+            rows="5"
+            class="w-full border rounded px-4 py-2"
+          ></textarea>
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
+          Save
+        </button>
+      </form>
+    </div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const noteId = urlParams.get("id");
+
+      fetch(`https://api.example.com/notes/${noteId}`)
+        .then((response) => response.json())
+        .then((note) => {
+          document.getElementById("title").value = note.title;
+          document.getElementById("content").value = note.content;
+        });
+
+      document
+        .getElementById("editNoteForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          const formData = new FormData(this);
+
+          fetch(`https://api.example.com/notes/${noteId}`, {
+            method: "PUT",
+            body: formData,
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              // Redirect to notes page
+              window.location.href = "notes.html";
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+              alert("Failed to edit note. Please try again later.");
+            });
+        });
+    </script>
+  </body>
+</html>
