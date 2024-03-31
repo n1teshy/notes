@@ -63,7 +63,7 @@
       }
 
       async function confirmDelete(noteIndex) {
-        const note = notes.find((_, index) => index === noteIndex);
+        const note = notes[noteIndex];
         if (confirm("Are you sure you want to delete this note?")) {
           await fetch(
             `https://virtual-paper.netlify.app/.netlify/functions/notes/${note.id}`,
