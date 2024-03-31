@@ -46,7 +46,10 @@ async function note(req) {
   const id = req.path.replace(/\/$/, "").split("/").at(-1);
   if (method === "GET") {
     const note = await Note.findOne({ id: id });
-    return makeResponse(note.toJSON());
+    if (note) {
+      return makeResponse(note.toJSON());
+    }
+    return makeResponse({ message: "Note not found" }, statuses.NOT_FOUND);
   } else if (method == "PUT") {
     const errors = await validator.asyncValidate(req.body);
     if (errors) {
