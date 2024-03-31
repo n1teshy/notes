@@ -29,7 +29,7 @@
     </div>
 
     <script>
-      const notes = [];
+      let notes = [];
       document.addEventListener("DOMContentLoaded", async function () {
         await fetchNotes();
       });
@@ -70,6 +70,8 @@
               method: "DELETE",
             }
           );
+          notes = notes.filter((note) => note.id !== noteId);
+          populateNotes(notes);
         }
       }
     </script>
