@@ -22,7 +22,7 @@ exports.handler = async (req) => {
 async function notes(req) {
   const method = req.method;
   if (method !== "GET" && method !== "POST") {
-    throw AppError(statuses.BAD_REQUEST, "Nah bro, wrong method");
+    throw new AppError(statuses.BAD_REQUEST, "Nah bro, wrong method");
   }
   if (method == "POST") {
     const errors = validator.asyncValidate(req.body);
