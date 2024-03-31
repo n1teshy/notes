@@ -11,7 +11,7 @@ export class NoteValidator extends BaseValidator {
   constructor() {
     super();
     super.init({
-      title: new StringField("Title").test(async (username) => {
+      title: new StringField("Title").test(async (title) => {
         const userExists = await Note.exists({ title });
         return [!userExists, "Bad news fam, you already done used that title."];
       }),
