@@ -16,7 +16,7 @@ exports.handler = async (req) => {
       }
       await onRequest(req);
       if (method == "POST") {
-        const errors = validator.asyncValidate(req.body);
+        const errors = await validator.asyncValidate(req.body);
         if (errors) {
           return makeResponse(errors, statuses.UNPROCESSABLE);
         }
