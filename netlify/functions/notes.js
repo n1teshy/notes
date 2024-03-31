@@ -21,7 +21,7 @@ exports.handler = async (req) => {
 
 async function notes(req) {
   const method = req.method;
-  if (method === "PUT" || method === "DELETE") {
+  if (method !== "GET" && method !== "POST") {
     throw AppError(statuses.BAD_REQUEST, "Nah bro, wrong method");
   }
   if (method == "POST") {
@@ -32,6 +32,7 @@ async function notes(req) {
     const note = await Note.create(req.body);
     return makeResponse(note.toJSON());
   }
+  return makeResponse({ message: "we here" })
   const notes = Note.find().skip(req.queries.skip ?? 0).limit(req.queries.limit ?? 20);
   return makeResponse(notes.map((note) => note.toJSON()));
 }
