@@ -8,13 +8,13 @@ const validator = new NoteValidator();
 
 exports.handler = async (req) => {
   try {
-    const method = req.method;
+    const method = req.httpMethod;
     if (new RegExp("/.netlify/functions/notes/?$").test(req.path)) {
       // /notes/ handler
-      await onRequest(req);
       if (method !== "GET" && method !== "POST") {
         throw new AppError(statuses.BAD_REQUEST, `Nah bro, wrong method ${method}`);
       }
+      await onRequest(req);
       if (method == "POST") {
         const errors = validator.asyncValidate(req.body);
         if (errors) {
