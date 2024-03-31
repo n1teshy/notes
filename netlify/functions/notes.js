@@ -23,7 +23,7 @@ exports.handler = async (req) => {
         const note = await Note.create(req.body);
         return makeResponse(note.toJSON());
       }
-      const notes = Note.find().skip(req.queries.skip ?? 0).limit(req.queries.limit ?? 20);
+      const notes = await Note.find().skip(req.queries.skip ?? 0).limit(req.queries.limit ?? 20);
       return makeResponse(notes.map((note) => note.toJSON()));
     } else if (new RegExp("/.netlify/functions/notes/[a-f0-9]{24}/?$").test(req.path)) {
       // /notes/<id>/ handler
