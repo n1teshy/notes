@@ -1,10 +1,7 @@
 import { Note } from "../models/note.js";
 import {
-  ArrayField,
   BaseValidator,
-  BooleanField,
   StringField,
-  NumberField,
 } from "anubis-inspect";
 
 export class NoteValidator extends BaseValidator {
@@ -13,7 +10,7 @@ export class NoteValidator extends BaseValidator {
     super.init({
       title: new StringField("Title").test(async (title) => {
         const userExists = await Note.exists({ title });
-        return [!userExists, "Bad news fam, you already done used that title."];
+        return [!userExists, "Bad news fam, you already done used this title."];
       }),
       content: new StringField("Content"),
     });
