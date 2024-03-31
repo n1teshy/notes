@@ -19,4 +19,4 @@ noteSchema.methods.toJSON = function () {
   };
 };
 
-export const Message = mongoose.model("Message", noteSchema);
+export const Note = mongoose.model("Note", noteSchema);
