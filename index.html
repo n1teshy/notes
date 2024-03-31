@@ -63,6 +63,8 @@
       }
 
       async function confirmDelete(noteIndex) {
+        console.log(notes);
+        console.log(noteIndex, typeof noteIndex);
         const note = notes[noteIndex];
         if (confirm("Are you sure you want to delete this note?")) {
           await fetch(
