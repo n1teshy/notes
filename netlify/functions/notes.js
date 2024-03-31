@@ -45,7 +45,7 @@ async function note(req) {
   await onRequest(req);
   const id = req.path.replace(/\/$/, "").split("/").at(-1);
   if (method === "GET") {
-    const note = await Note.findOne({ id: id });
+    const note = await Note.findById(id);
     if (note) {
       return makeResponse(note.toJSON());
     }
@@ -55,7 +55,7 @@ async function note(req) {
     if (errors) {
       return makeResponse(errors, statuses.UNPROCESSABLE);
     }
-    const updated = await Note.findOneAndUpdate({ id: id }, { $set: req.body }, { new: true });
+    const updated = await Note.findByIdAndUpdate(id, req.body, { new: true });
     return makeResponse(updated.toJSON());
   }
   await Note.findOneAndDelete({ id: id });
