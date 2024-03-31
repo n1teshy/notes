@@ -12,7 +12,7 @@ exports.handler = async (req) => {
     if (handler === null) {
       throw new AppError(statuses.NOT_FOUND, "Naw son, dat path ain't here.");
     }
-    await onRequest(req, true);
+    await onRequest(req);
     handler[1](req);
   } catch (error) {
     return makeResponse({ message: error.message }, error.status || 500);
