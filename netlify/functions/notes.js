@@ -58,7 +58,7 @@ async function note(req) {
     const updated = await Note.findByIdAndUpdate(noteId, req.body, { new: true });
     return makeResponse(updated.toJSON());
   }
-  await Note.findByIdAndDelete(id);
+  await Note.findByIdAndDelete(noteId);
   return makeResponse({ message: "deleted" })
 }
 
