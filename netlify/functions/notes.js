@@ -43,10 +43,9 @@ async function note(req) {
     throw AppError(statuses.UNPROCESSABLE, "wrong method fam.")
   }
   await onRequest(req);
-  const id = req.path.replace(/\/$/, "").split("/").at(-1);
+  const noteId = req.path.replace(/\/$/, "").split("/").at(-1);
   if (method === "GET") {
-    return makeResponse({ id: id });
-    const note = await Note.findById(id);
+    const note = await Note.findById(noteId);
     if (note) {
       return makeResponse(note.toJSON());
     }
@@ -56,10 +55,10 @@ async function note(req) {
     if (errors) {
       return makeResponse(errors, statuses.UNPROCESSABLE);
     }
-    const updated = await Note.findByIdAndUpdate(id, req.body, { new: true });
+    const updated = await Note.findByIdAndUpdate(noteId, req.body, { new: true });
     return makeResponse(updated.toJSON());
   }
-  await Note.findOneAndDelete({ id: id });
+  await Note.findOneAndDelete({ id: noteId });
   return makeResponse({ message: "deleted" })
 }
 
