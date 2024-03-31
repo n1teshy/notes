@@ -23,6 +23,7 @@
             name="title"
             class="w-full border rounded px-4 py-2"
           />
+          <p class="text-red-500 text-xs italic" id="titleError"></p>
         </div>
         <div class="mb-4">
           <label for="content" class="block">Content</label>
@@ -32,6 +33,7 @@
             rows="5"
             class="w-full border rounded px-4 py-2"
           ></textarea>
+          <p class="text-red-500 text-xs italic" id="contentError"></p>
         </div>
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
           Add Note
@@ -40,6 +42,11 @@
     </div>
 
     <script>
+      const title = document.getElementById("title").value;
+      const content = document.getElementById("content").value;
+      const titleError = document.getElementById("titleError");
+      const contentError = document.getElementById("contentError");
+
       document
         .getElementById("addNoteForm")
         .addEventListener("submit", async function (event) {
@@ -47,10 +54,14 @@
           await submitForm();
         });
 
+      function setErrors(title, content) {
+        titleError.innerText = title;
+        contentError.innerText = content;
+      }
+
       async function submitForm() {
         try {
-          const title = document.getElementById("title").value;
-          const content = document.getElementById("content").value;
+          setErrors("", "");
           const data = {
             title: title ? title : null,
             content: content ? content : null,
@@ -66,8 +77,11 @@
           if (response.ok) {
             window.location.href = "https://virtual-paper.netlify.app";
           } else {
-            console.log(response);
-            alert("could not add note");
+            const data = await response.json();
+            if (response.status === 422) {
+              setErrors(data.title ?? "", data.content ?? "");
+            }
+            alert("unforeseen bad event took place, mind trying later?");
           }
         } catch (e) {
           console.log(e);

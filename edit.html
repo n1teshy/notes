@@ -23,6 +23,7 @@
             name="title"
             class="w-full border rounded px-4 py-2"
           />
+          <p class="text-red-500 text-xs italic" id="titleError"></p>
         </div>
         <div class="mb-4">
           <label for="content" class="block">Content</label>
@@ -32,6 +33,7 @@
             rows="5"
             class="w-full border rounded px-4 py-2"
           ></textarea>
+          <p class="text-red-500 text-xs italic" id="contentError"></p>
         </div>
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">
           Save
@@ -47,6 +49,13 @@
       const noteId = urlParams.get("id");
       const title = document.getElementById("title");
       const content = document.getElementById("content");
+      const titleError = document.getElementById("titleError");
+      const contentError = document.getElementById("contentError");
+
+      function setErrors(title, content) {
+        titleError.innerText = title;
+        contentError.innerText = content;
+      }
 
       async function onLoad() {
         try {
@@ -74,6 +83,7 @@
 
       async function submitForm() {
         try {
+          setErrors("", "");
           const data = {
             title: title.value ? title.value : null,
             content: content.value ? content.value : null,
@@ -86,7 +96,16 @@
               body: JSON.stringify(data),
             }
           );
-          console.log(response);
+          if (response.ok) {
+            window.location.href = "https://virtual-paper.netlify.app";
+          } else {
+            if (response.status === 422) {
+              const data = await response.json();
+              setErrors(data.title ?? "", data.content ?? "");
+            } else {
+              alert("unforeseen bad event took place, mind trying later?");
+            }
+          }
         } catch (e) {
           console.log(e);
         }
