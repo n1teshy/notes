@@ -64,5 +64,5 @@ async function note(req) {
 
 const handlers = [
   ["/.netlify/functions/notes/?$", notes],
-  ["/.netlify/functions/notes/[a-f0-9]{24}/?$", note],
+  ["/.netlify/functions/notes/[A-Fa-f0-9]{24}/?$", note],
 ]
