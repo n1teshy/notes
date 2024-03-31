@@ -51,7 +51,7 @@
         notesContainer.innerHTML = "";
         notes.forEach((note, noteIndex) => {
           const noteHtml = `
-                        <div class="md:col-span-6 col-span-12 bg-white p-4 rounded shadow">
+                        <div class="md:col-span-6 col-span-12 bg-white p-4 rounded shadow p-2">
                             <h2 class="text-lg font-semibold">${note.title}</h2>
                             <p>${note.content}</p>
                             <button onclick="confirmDelete(${noteIndex})" class="mt-2 bg-red-500 text-white px-4 py-1 rounded">Delete</button>
