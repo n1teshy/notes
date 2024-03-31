@@ -42,8 +42,8 @@
     </div>
 
     <script>
-      const title = document.getElementById("title").value;
-      const content = document.getElementById("content").value;
+      const title = document.getElementById("title");
+      const content = document.getElementById("content");
       const titleError = document.getElementById("titleError");
       const contentError = document.getElementById("contentError");
 
@@ -63,8 +63,8 @@
         try {
           setErrors("", "");
           const data = {
-            title: title ? title : null,
-            content: content ? content : null,
+            title: title.value ?? null,
+            content: content.value ?? null,
           };
           const response = await fetch(
             "https://virtual-paper.netlify.app/.netlify/functions/notes",
@@ -80,8 +80,9 @@
             const data = await response.json();
             if (response.status === 422) {
               setErrors(data.title ?? "", data.content ?? "");
+            } else {
+              alert("unforeseen bad event took place, mind trying later?");
             }
-            alert("unforeseen bad event took place, mind trying later?");
           }
         } catch (e) {
           console.log(e);

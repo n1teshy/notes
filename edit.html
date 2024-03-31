@@ -85,8 +85,8 @@
         try {
           setErrors("", "");
           const data = {
-            title: title.value ? title.value : null,
-            content: content.value ? content.value : null,
+            title: title.value ?? null,
+            content: content.value ?? null,
           };
           const response = await fetch(
             `https://virtual-paper.netlify.app/.netlify/functions/notes/${noteId}`,
