@@ -42,24 +42,33 @@
     <script>
       document
         .getElementById("addNoteForm")
-        .addEventListener("submit", function (event) {
+        .addEventListener("submit", async function (event) {
           event.preventDefault();
-          const formData = new FormData(this);
-
-          fetch("https://api.example.com/notes", {
-            method: "POST",
-            body: formData,
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              // Redirect to notes page
-              window.location.href = "notes.html";
-            })
-            .catch((error) => {
-              console.error("Error:", error);
-              alert("Failed to add note. Please try again later.");
-            });
+          await submitForm();
         });
+
+      async function submitForm() {
+        try {
+          const title = document.getElementById("title").value;
+          const content = document.getElementById("content").value;
+          const data = {
+            title: title ? title : null,
+            content: content ? content : null,
+          };
+          const response = await fetch("https://api.example.com/notes", {
+            method: "POST",
+            body: data,
+          });
+          if (response.ok) {
+            window.location.href = "https://virtual-paper.netlify.app";
+          } else {
+            console.log(response);
+            alert("could not add note");
+          }
+        } catch (e) {
+          console.log(e);
+        }
+      }
     </script>
   </body>
 </html>
