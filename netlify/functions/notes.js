@@ -4,7 +4,7 @@ import { NoteValidator } from "../utils/validation.js";
 import { makeResponse, statuses } from "../utils/response.js";
 import { AppError } from "../utils/error.js";
 
-const validator = NoteValidator();
+const validator = new NoteValidator();
 
 exports.handler = async (req) => {
   try {
