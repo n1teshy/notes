@@ -22,7 +22,7 @@ exports.handler = async (req) => {
 async function notes(req) {
   const method = req.httpMethod;
   if (method !== "GET" && method !== "POST") {
-    throw new AppError(statuses.BAD_REQUEST, `Nah bro, wrong method ${method}`);
+    throw new AppError(statuses.BAD_REQUEST, "Nah bro, wrong method");
   }
   await onRequest(req);
   if (method == "POST") {
@@ -38,7 +38,25 @@ async function notes(req) {
 }
 
 async function note(req) {
-  return makeResponse({ message: "Not ready yet." })
+  const method = req.httpMethod;
+  if (method !== "GET" && method !== "PUT" && method !== "DELETE") {
+    throw AppError(statuses.UNPROCESSABLE, "wrong method fam.")
+  }
+  await onRequest(req);
+  const id = req.path.replace(/\/$/, "").split("/").at(-1);
+  if (method === "GET") {
+    const note = await Note.findOne({ id: id });
+    return makeResponse(note.toJSON());
+  } else if (method == "PUT") {
+    const errors = await validator.asyncValidate(req.body);
+    if (errors) {
+      return makeResponse(errors, statuses.UNPROCESSABLE);
+    }
+    const updated = await Note.findOneAndUpdate({ id: id }, { $set: req.body }, { new: true });
+    return makeResponse(updated.toJSON());
+  }
+  await Note.findOneAndDelete({ id: id });
+  return makeResponse({ message: "deleted" })
 }
 
 const handlers = [
