@@ -9,7 +9,7 @@ const validator = new NoteValidator();
 exports.handler = async (req) => {
   try {
     const handler = handlers.find((item) => new RegExp(item[0]).test(req.path))
-    if (handler !== null) {
+    if (handler) {
       return await handler[1](req);
     } else {
       throw new AppError(statuses.NOT_FOUND, "Naw son, dat path ain't here.");
