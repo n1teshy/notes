@@ -45,7 +45,8 @@ async function note(req) {
   await onRequest(req);
   const id = req.path.replace(/\/$/, "").split("/").at(-1);
   if (method === "GET") {
-    const note = await Note.findById("66095a3f880088799806dcda");
+    return makeResponse({ id: id });
+    const note = await Note.findById(id);
     if (note) {
       return makeResponse(note.toJSON());
     }
