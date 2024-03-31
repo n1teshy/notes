@@ -71,7 +71,7 @@
               method: "DELETE",
             }
           );
-          notes = notes.filter((n) => n.id !== note.id);
+          notes.splice(noteIndex, 1);
           populateNotes(notes);
         }
       }
