@@ -26,7 +26,6 @@ async function notes(req) {
   }
   await onRequest(req);
   if (method == "POST") {
-    return makeResponse(req.body);
     const errors = await validator.asyncValidate(req.body);
     if (errors) {
       return makeResponse(errors, statuses.UNPROCESSABLE);
