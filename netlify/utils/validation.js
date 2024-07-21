@@ -12,7 +12,7 @@ export class NoteValidator extends BaseValidator {
         const userExists = await Note.exists({ title });
         return [!userExists, "Bad news fam, you already done used this title."];
       }),
-      content: new StringField("Content"),
+      content: new StringField("Content", false),
     });
   }
 }
