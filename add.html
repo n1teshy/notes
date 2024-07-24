@@ -7,59 +7,57 @@
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body class="p-2 bg-black text-white">
-    <div>
-      <h1 class="text-2xl mb-4">Add Note</h1>
-      <form>
-        <div class="mb-4">
-          <label for="title" class="block">Title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            class="w-full border rounded px-4 py-2 bg-gray-900"
-          />
-          <p class="text-red-500 text-xs italic hidden" id="titleError">hello</p>
-        </div>
-        <div class="mb-4">
-          <label for="content" class="block">Content</label>
-          <textarea
-            id="content"
-            name="content"
-            rows="5"
-            class="w-full border rounded px-4 py-2 bg-gray-900"
-          ></textarea>
-          <p class="text-red-500 text-xs italic hidden" id="contentError"></p>
-        </div>
+    <h1 class="text-2xl mb-4">Add Note</h1>
+    <form>
+      <div class="mb-4">
+        <label for="title" class="block">Title</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          class="w-full border rounded px-4 py-2 bg-gray-900"
+        />
+        <p class="text-red-500 text-xs italic hidden" id="titleError">hello</p>
+      </div>
+      <div class="mb-4">
+        <label for="content" class="block">Content</label>
+        <textarea
+          id="content"
+          name="content"
+          rows="5"
+          class="w-full border rounded px-4 py-2 bg-gray-900"
+        ></textarea>
+        <p class="text-red-500 text-xs italic hidden" id="contentError"></p>
+      </div>
+      <div class="flex justify-end">
+        <button
+          onclick="onCancel()"
+          type="button"
+          class="bg-red-500 mr-2 px-4 py-2"
+        >
+          Cancel
+        </button>
+        <button onclick="onAdd()" type="button" class="bg-cyan-500 px-4 py-2">
+          Add
+        </button>
+      </div>
+    </form>
+
+    <!-- modal -->
+    <div
+      id="modal"
+      class="modal fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 hidden"
+    >
+      <div class="bg-gray-900 rounded-lg shadow-lg p-6 w-full max-w-lg">
+        <h2 id="modalTitle" class="text-2xl font-semibold mb-4"></h2>
+        <p id="modalContent" class="whitespace-pre-wrap mb-4"></p>
         <div class="flex justify-end">
           <button
-            onclick="onCancel()"
-            type="button"
-            class="bg-red-500 mr-2 px-4 py-2"
+            id="closeModal"
+            class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700"
           >
-            Cancel
+            Close
           </button>
-          <button onclick="onAdd()" type="button" class="bg-cyan-500 px-4 py-2">
-            Add
-          </button>
-        </div>
-      </form>
-
-      <!-- modal -->
-      <div
-        id="modal"
-        class="modal fixed inset-0 bg-gray-800 bg-opacity-75 flex items-center justify-center z-50 hidden"
-      >
-        <div class="bg-gray-900 rounded-lg shadow-lg p-6 w-full max-w-lg">
-          <h2 id="modalTitle" class="text-2xl font-semibold mb-4"></h2>
-          <p id="modalContent" class="whitespace-pre-wrap mb-4"></p>
-          <div class="flex justify-end">
-            <button
-              id="closeModal"
-              class="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-700"
-            >
-              Close
-            </button>
-          </div>
         </div>
       </div>
     </div>
