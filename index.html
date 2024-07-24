@@ -69,9 +69,9 @@
       const notesContainer = document.getElementById("notes");
       notesContainer.innerHTML = "";
       notes.forEach((note, noteIndex) => {
-        const padding = noteIndex % 2 === 0 ? "pr-2" : "pl-2";
+        const margin = noteIndex % 2 === 0 ? "mr-1" : "ml-1";
         const noteHtml = `
-          <div class="md:col-span-6 md:${padding} pb-2 col-span-12 p-4 border rounded-lg">
+          <div class="md:col-span-6 md:${margin} mb-2 col-span-12 p-4 border rounded-lg">
             <!-- title -->
             <h2 class="text-lg font-semibold">${note.title}</h2>
 
