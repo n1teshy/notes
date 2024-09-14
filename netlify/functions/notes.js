@@ -21,7 +21,7 @@ exports.handler = async (req) => {
 
 async function notes(req) {
   const method = req.httpMethod;
-  if (method !== "GET" && method !== "POST") {
+  if (method !== "GET" && method !== "POST" && req.method !== "OPTIONS") {
     throw new AppError(statuses.BAD_REQUEST, "Nah bro, wrong method");
   }
   await onRequest(req);
@@ -32,6 +32,12 @@ async function notes(req) {
     }
     const note = await Note.create(req.body);
     return makeResponse(note.toJSON());
+  } else if (req.method === "OPTIONS") {
+      return makeResponse({}, 200, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
+      "Access-Control-Allow-Methods": "*",
+    })
   }
   const notes = await Note.find()
     .skip(req.queries.skip ?? 0)

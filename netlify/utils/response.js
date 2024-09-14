@@ -1,8 +1,12 @@
-export function makeResponse(data, status = 200) {
-  return {
+export function makeResponse(data, status = 200, headers = null) {
+  const response = {
     statusCode: status,
     body: JSON.stringify(data),
   };
+  if(headers !== null) {
+    response.headers = headers;
+  }
+  return response;
 }
 
 export const statuses = {
