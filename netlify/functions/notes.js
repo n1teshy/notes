@@ -21,7 +21,14 @@ exports.handler = async (req) => {
 
 async function notes(req) {
   const method = req.httpMethod;
-  if (method !== "GET" && method !== "POST" && req.method !== "OPTIONS") {
+  if(method === "OPTIONS") {
+    return makeResponse({}, 200, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
+      "Access-Control-Allow-Methods": "*",
+    })
+  }
+  if (method !== "GET" && method !== "POST") {
     throw new AppError(statuses.BAD_REQUEST, `Nah bro, wrong method ${method}`);
   }
   await onRequest(req);
@@ -36,12 +43,6 @@ async function notes(req) {
       "Access-Control-Allow-Headers": "*",
       "Access-Control-Allow-Methods": "*",
     });
-  } else if (req.method === "OPTIONS") {
-      return makeResponse({}, 200, {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "*",
-      "Access-Control-Allow-Methods": "*",
-    })
   }
   const notes = await Note.find()
     .skip(req.queries.skip ?? 0)
