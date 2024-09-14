@@ -31,7 +31,11 @@ async function notes(req) {
       return makeResponse(errors, statuses.UNPROCESSABLE);
     }
     const note = await Note.create(req.body);
-    return makeResponse(note.toJSON());
+    return makeResponse(note.toJSON(), 200, {
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Headers": "*",
+      "Access-Control-Allow-Methods": "*",
+    });
   } else if (req.method === "OPTIONS") {
       return makeResponse({}, 200, {
       "Access-Control-Allow-Origin": "*",
