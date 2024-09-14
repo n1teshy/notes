@@ -22,7 +22,7 @@ exports.handler = async (req) => {
 async function notes(req) {
   const method = req.httpMethod;
   if (method !== "GET" && method !== "POST" && req.method !== "OPTIONS") {
-    throw new AppError(statuses.BAD_REQUEST, "Nah bro, wrong method");
+    throw new AppError(statuses.BAD_REQUEST, `Nah bro, wrong method ${method}`);
   }
   await onRequest(req);
   if (method == "POST") {
